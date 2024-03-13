@@ -117,12 +117,12 @@ volumes:
 - 컨테이너 실행
 
 ```
-PS D:\seedlabs> docker-compose up -d
+PS D:\TestToolChain> docker-compose up -d
 [+] Running 5/5
  ✔ Container redmine               Running                                                           0.0s
  ✔ Container seedlabs-ssh-agent-1  Running                                                           0.0s
  ✔ Container sonarqube             Running                                                           0.0s
  ✔ Container postgres              Started                                                           1.2s
  ✔ Container jenkins               Started                                                           1.7s
-PS D:\seedlabs>
+PS D:\TestToolChain>
 ```
