@@ -1,0 +1,68 @@
+version: "3"
+services:
+  # redmine
+  redmine:
+    image: redmine:latest
+    container_name: redmine
+    ports:
+      - "3000:3000"
+    environment:
+      - REDMINE_DB_POSTGRES=postgres
+      - REDMINE_DB_DATABASE=seedlabs
+      - REDMINE_DB_USERNAME=seedlabs
+      - REDMINE_DB_PASSWORD=seedlabs
+    volumes:
+      - redmine_data:/usr/src/redmine/files
+    networks:
+      - tool_chain
+
+  # jenkis ( ssh-agent 는 ssh-over 를 위함 )
+  jenkins:
+    image: seedlabs
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    networks:
+      - tool_chain
+  ssh-agent:
+    image: jenkins/ssh-agent
+    networks:
+      - tool_chain
+
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9001:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://postgres:5432/seedlabs
+      - SONARQUBE_JDBC_USERNAME=seedlabs
+      - SONARQUBE_JDBC_PASSWORD=seedlabs
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+    networks:
+      - tool_chain
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=seedlabs
+      - POSTGRES_USER=seedlabs
+      - POSTGRES_PASSWORD=seedlabs
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tool_chain
+
+networks:
+  tool_chain:
+    driver: bridge
+
+volumes:
+  redmine_data:
+  jenkins_data:
+  sonarqube_data:
+  postgres_data:
