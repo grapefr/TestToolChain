@@ -126,3 +126,17 @@ PS D:\TestToolChain> docker-compose up -d
  ✔ Container jenkins               Started                                                           1.7s
 PS D:\TestToolChain>
 ```
+
+## 초기 설정
+
+### jenkins
+
+- 초기 비번 확인
+
+```
+PS D:\TestToolChain> docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+95937f444abc48c2be4d256e1b6c0ba8
+PS D:\TestToolChain>
+```
+
+# 이후 세팅은 update 예정
